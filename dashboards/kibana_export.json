@@ -1,0 +1,188 @@
+{
+  "version": "8.0.0",
+  "title": "SOC AI Triage Lab Dashboard",
+  "author": "Ajay Kancherla",
+  "description": "Main SOC dashboard showing Wazuh alerts, AI triage results and threat intelligence",
+  "panels": [
+    {
+      "id": "panel_001",
+      "title": "Total Alerts Today",
+      "type": "metric",
+      "description": "Shows total number of security alerts generated today",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "filter": "timestamp >= now-24h",
+        "aggregation": "count"
+      },
+      "position": {
+        "row": 1,
+        "col": 1,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": "panel_002",
+      "title": "Critical Alerts",
+      "type": "metric",
+      "description": "Shows number of Critical severity alerts",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "filter": "rule.level >= 12",
+        "aggregation": "count"
+      },
+      "color": "red",
+      "position": {
+        "row": 1,
+        "col": 4,
+        "width": 3,
+        "height": 2
+      }
+    },
+    {
+      "id": "panel_003",
+      "title": "Alerts by Severity",
+      "type": "pie_chart",
+      "description": "Distribution of alerts across severity levels",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "terms",
+        "field": "rule.level",
+        "buckets": [
+          {"label": "Critical", "range": "12-15"},
+          {"label": "High", "range": "9-11"},
+          {"label": "Medium", "range": "6-8"},
+          {"label": "Low", "range": "1-5"}
+        ]
+      },
+      "position": {
+        "row": 1,
+        "col": 7,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_004",
+      "title": "Alert Timeline",
+      "type": "line_chart",
+      "description": "Shows alert volume over time",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "date_histogram",
+        "field": "timestamp",
+        "interval": "1h"
+      },
+      "position": {
+        "row": 3,
+        "col": 1,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_005",
+      "title": "Top Attacking IPs",
+      "type": "bar_chart",
+      "description": "Shows most frequent source IP addresses",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "terms",
+        "field": "data.srcip",
+        "size": 10
+      },
+      "position": {
+        "row": 7,
+        "col": 1,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_006",
+      "title": "Top Alert Rules Triggered",
+      "type": "bar_chart",
+      "description": "Shows most frequently triggered detection rules",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "terms",
+        "field": "rule.description",
+        "size": 10
+      },
+      "position": {
+        "row": 7,
+        "col": 7,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_007",
+      "title": "MITRE ATT&CK Techniques",
+      "type": "table",
+      "description": "Shows detected MITRE ATT&CK techniques",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "terms",
+        "field": "rule.mitre.technique",
+        "size": 20
+      },
+      "columns": [
+        "Technique ID",
+        "Technique Name",
+        "Count",
+        "Last Seen"
+      ],
+      "position": {
+        "row": 11,
+        "col": 1,
+        "width": 12,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_008",
+      "title": "Alerts by Agent",
+      "type": "bar_chart",
+      "description": "Shows which machines are generating most alerts",
+      "query": {
+        "index": "wazuh-alerts-*",
+        "aggregation": "terms",
+        "field": "agent.name",
+        "size": 10
+      },
+      "position": {
+        "row": 15,
+        "col": 1,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_009",
+      "title": "AI Triage Results",
+      "type": "table",
+      "description": "Shows results from AI triage bot",
+      "query": {
+        "index": "soc-triage-*",
+        "fields": [
+          "timestamp",
+          "triage.severity",
+          "triage.attack_type",
+          "triage.mitre_technique",
+          "triage.false_positive_chance",
+          "thehive_case"
+        ]
+      },
+      "position": {
+        "row": 15,
+        "col": 7,
+        "width": 6,
+        "height": 4
+      }
+    },
+    {
+      "id": "panel_010",
+      "title": "Threat Intelligence Map",
+      "type": "geo_map",
+      "description": "World map showing origin of attac
