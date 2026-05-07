@@ -16,14 +16,14 @@ import os
 # CONFIGURATION — CHANGE THESE TO YOUR VALUES
 # ============================================
 
-WAZUH_IP = "YOUR-UBUNTU-VM-IP"
+WAZUH_IP = "192.168.56.105"
 WAZUH_USER = "admin"
 WAZUH_PASS = "YOUR-WAZUH-PASSWORD"
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "mistral"
 
-THEHIVE_URL = "http://YOUR-UBUNTU-VM-IP:9000"
+THEHIVE_URL = "http://192.168.56.105:9000"
 THEHIVE_API_KEY = "YOUR-THEHIVE-API-KEY"
 
 LOG_FILE = "triage_results.json"

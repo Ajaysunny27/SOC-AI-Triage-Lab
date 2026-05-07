@@ -14,7 +14,7 @@ import datetime
 # CONFIGURATION
 # ============================================
 
-THEHIVE_URL = "http://YOUR-UBUNTU-VM-IP:9000"
+THEHIVE_URL = "http://192.168.56.105:9000"
 THEHIVE_API_KEY = "YOUR-THEHIVE-API-KEY"
 
 HEADERS = {
