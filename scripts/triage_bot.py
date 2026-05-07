@@ -18,10 +18,10 @@ import os
 
 WAZUH_IP = "192.168.56.105"
 WAZUH_USER = "admin"
-WAZUH_PASS = "YOUR-WAZUH-PASSWORD"
+WAZUH_PASS = "zowZZ32Hoq7kioqBugOcvj.*pN*QB?qe"
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "mistral"
+OLLAMA_MODEL = "phi"
 
 THEHIVE_URL = "http://192.168.56.105:9000"
 THEHIVE_API_KEY = "YOUR-THEHIVE-API-KEY"
@@ -53,7 +53,7 @@ Do not write anything outside the JSON.
 def get_wazuh_alerts():
     print("[*] Fetching alerts from Wazuh...")
     try:
-        url = f"https://{WAZUH_IP}/security/events"
+        url = f"https://{WAZUH_IP}:55000/alerts"
         response = requests.get(
             url,
             auth=(WAZUH_USER, WAZUH_PASS),

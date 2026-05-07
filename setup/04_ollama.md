@@ -23,12 +23,11 @@ ollama --version
 ```
 
 You should see a version number.
-
-## Download Mistral AI Model
+## Download phi AI Model
 
 In Command Prompt type:
 ```bash
-ollama pull mistral
+ollama pull Phi
 ```
 
 This downloads the Mistral AI model.
